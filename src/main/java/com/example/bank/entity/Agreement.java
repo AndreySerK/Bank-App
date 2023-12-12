@@ -38,11 +38,11 @@ public class Agreement {
     @Column(name = "updated_at")
     private Timestamp updatedAt;
 
-    @ManyToOne(cascade = {MERGE, PERSIST, REFRESH})
+    @ManyToOne(cascade = ALL)
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     private Product product;
 
-    @ManyToOne(cascade = {MERGE, PERSIST, REFRESH})
+    @ManyToOne(cascade = ALL)
     @JoinColumn(name = "account_id", referencedColumnName = "id")
     private Account account;
 }

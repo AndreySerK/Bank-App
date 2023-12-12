@@ -50,16 +50,16 @@ public class Account {
     @Column(name = "updated_at")
     private Timestamp updatedAt;
 
-    @ManyToOne(cascade = {MERGE, PERSIST, REFRESH}, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id", referencedColumnName = "id")
     private Client client;
 
-    @OneToMany(mappedBy = "account", cascade = {MERGE, PERSIST, REFRESH}, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "account", cascade = ALL, orphanRemoval = true)
     private List<Agreement> agreements;
 
-    @OneToMany(mappedBy = "debitAccount", cascade = {MERGE, PERSIST, REFRESH}, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "debitAccount", cascade = ALL, orphanRemoval = true)
     private Set<Transaction> debitTransactions;
 
-    @OneToMany(mappedBy = "creditAccount", cascade = {MERGE, PERSIST, REFRESH}, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "creditAccount", cascade = ALL, orphanRemoval = true)
     private Set<Transaction> creditTransactions;
 }

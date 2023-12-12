@@ -39,9 +39,9 @@ public class Manager {
     @Column(name = "updated_at")
     private Timestamp updatedAt;
 
-    @OneToMany(mappedBy = "manager", cascade = {MERGE, PERSIST, REFRESH}, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "manager", cascade = ALL, orphanRemoval = true)
     private List<Client> clients;
 
-    @OneToMany(mappedBy = "manager", cascade = {MERGE, PERSIST, REFRESH}, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "manager", cascade = ALL, orphanRemoval = true)
     private List<Product> products;
 }
