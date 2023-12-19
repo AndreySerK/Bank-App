@@ -98,6 +98,19 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.liquibase</groupId>
+				<artifactId>liquibase-maven-plugin</artifactId>
+				<version>4.23.0</version>
+				<configuration>
+					<driver>com.mysql.cj.jdbc.Driver</driver>
+					<url>jdbc:mysql://localhost:3306/db</url>
+					<username>root</username>
+					<password>123</password>
+					<outputChangeLogFile>src/main/resources/liquibase-outputChangeLog.xml</outputChangeLogFile>
+					<diffTypes>data</diffTypes>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 

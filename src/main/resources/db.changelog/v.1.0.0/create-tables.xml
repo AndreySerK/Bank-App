@@ -1,0 +1,180 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet author="AK" id="create accounts table">
+        <preConditions onFail="CONTINUE" onFailMessage="Table accounts already exists">
+            <not>
+                <tableExists tableName="accounts"/>
+            </not>
+        </preConditions>
+        <createTable tableName="accounts">
+            <column name="balance" type="DOUBLE"/>
+            <column name="client_id" type="BIGINT">
+            </column>
+            <column name="created_at" type="TIMESTAMP" defaultValueDate="CURRENT_TIMESTAMP"/>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP"/>
+            <column name="currency_code" type="ENUM('CNY', 'EUR', 'GBP', 'JPY', 'USD')"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="status" type="ENUM('ACTIVE', 'BLOCKED', 'CLOSED', 'INACTIVE')"/>
+            <column name="type" type="ENUM('CURRENT', 'DEPOSIT', 'NON_RESIDENT', 'SALARY', 'SAVING')"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="AK" id="create agreements table">
+        <preConditions onFail="CONTINUE" onFailMessage="Table agreements already exists">
+            <not>
+                <tableExists tableName="agreements"/>
+            </not>
+        </preConditions>
+        <createTable tableName="agreements">
+            <column name="interest_rate" type="DECIMAL(38, 2)"/>
+            <column name="sum" type="DECIMAL(38, 2)"/>
+            <column name="account_id" type="BIGINT"/>
+            <column name="created_at" type="TIMESTAMP" defaultValueDate="CURRENT_TIMESTAMP"/>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="product_id" type="BIGINT"/>
+            <column name="updated_at" type="TIMESTAMP"/>
+            <column name="status" type="ENUM('ACTIVE', 'CLOSED', 'INACTIVE')"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="AK" id="create clients table">
+        <preConditions onFail="CONTINUE" onFailMessage="Table clients already exists">
+            <not>
+                <tableExists tableName="clients"/>
+            </not>
+        </preConditions>
+        <createTable tableName="clients">
+            <column name="created_at" type="TIMESTAMP" defaultValueDate="CURRENT_TIMESTAMP"/>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="manager_id" type="BIGINT"/>
+            <column name="updated_at" type="TIMESTAMP"/>
+            <column name="address" type="VARCHAR(255)"/>
+            <column name="email" type="VARCHAR(255)"/>
+            <column name="first_name" type="VARCHAR(255)"/>
+            <column name="last_name" type="VARCHAR(255)"/>
+            <column name="phone" type="VARCHAR(255)"/>
+            <column name="status" type="ENUM('ACTIVE', 'APPROVED', 'BLOCKED', 'DECEASED', 'INACTIVE', 'PENDING_APPROVAL')"/>
+            <column name="tax_code" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="AK" id="create managers table">
+        <preConditions onFail="CONTINUE" onFailMessage="Table managers already exists">
+            <not>
+                <tableExists tableName="managers"/>
+            </not>
+        </preConditions>
+        <createTable tableName="managers">
+            <column name="created_at" type="TIMESTAMP" defaultValueDate="CURRENT_TIMESTAMP"/>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP"/>
+            <column name="first_name" type="VARCHAR(255)"/>
+            <column name="last_name" type="VARCHAR(255)"/>
+            <column name="status" type="ENUM('FIRED', 'PROBATION', 'VACATION', 'WORKING')"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="AK" id="create products table">
+        <preConditions onFail="CONTINUE" onFailMessage="Table products already exists">
+            <not>
+                <tableExists tableName="products"/>
+            </not>
+        </preConditions>
+        <createTable tableName="products">
+            <column name="interest_rate" type="DOUBLE"/>
+            <column name="product_limit" type="INT"/>
+            <column name="created_at" type="TIMESTAMP" defaultValueDate="CURRENT_TIMESTAMP"/>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="manager_id" type="BIGINT"/>
+            <column name="updated_at" type="TIMESTAMP"/>
+            <column name="currency_code" type="ENUM('CNY', 'EUR', 'GBP', 'JPY', 'USD')"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="status" type="ENUM('ACTIVE', 'INACTIVE')"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="AK" id="create transactions table">
+        <preConditions onFail="CONTINUE" onFailMessage="Table transactions already exists">
+            <not>
+                <tableExists tableName="transactions"/>
+            </not>
+        </preConditions>
+        <createTable tableName="transactions">
+            <column name="amount" type="DOUBLE"/>
+            <column name="created_at" type="TIMESTAMP" defaultValueDate="CURRENT_TIMESTAMP"/>
+            <column name="credit_account_id" type="BIGINT"/>
+            <column name="debit_account_id" type="BIGINT"/>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="type" type="ENUM('DEPOSIT', 'TRANSFER', 'WITHDRAWAL')"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="1111 (generated)" id="1702392849757-7">
+        <createIndex indexName="FKb04ux70c9nn0yi4y3pmitlfo9" tableName="clients">
+            <column name="manager_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="1111 (generated)" id="1702392849757-8">
+        <createIndex indexName="FKc6bgqjw4pbwa2xsg2ql7n5grv" tableName="transactions">
+            <column name="credit_account_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="1111 (generated)" id="1702392849757-9">
+        <createIndex indexName="FKg98uwjewytai1i7fe2cu4xioi" tableName="products">
+            <column name="manager_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="1111 (generated)" id="1702392849757-10">
+        <createIndex indexName="FKgymog7firrf8bnoiig61666ob" tableName="accounts">
+            <column name="client_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="1111 (generated)" id="1702392849757-11">
+        <createIndex indexName="FKkpq7imh2rcolpghjxb6b8ouwc" tableName="transactions">
+            <column name="debit_account_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="1111 (generated)" id="1702392849757-12">
+        <createIndex indexName="FKlshrwa9mq7iar9rwxkwdrus2r" tableName="agreements">
+            <column name="account_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="1111 (generated)" id="1702392849757-13">
+        <createIndex indexName="FKvtp15t5x12x5lk4akedy8e4n" tableName="agreements">
+            <column name="product_id"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="1111 (generated)" id="1702392849757-14">
+        <addForeignKeyConstraint baseColumnNames="manager_id" baseTableName="clients" constraintName="FKb04ux70c9nn0yi4y3pmitlfo9" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="managers" validate="true"/>
+    </changeSet>
+    <changeSet author="1111 (generated)" id="1702392849757-15">
+        <addForeignKeyConstraint baseColumnNames="credit_account_id" baseTableName="transactions" constraintName="FKc6bgqjw4pbwa2xsg2ql7n5grv" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="accounts" validate="true"/>
+    </changeSet>
+    <changeSet author="1111 (generated)" id="1702392849757-16">
+        <addForeignKeyConstraint baseColumnNames="manager_id" baseTableName="products" constraintName="FKg98uwjewytai1i7fe2cu4xioi" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="managers" validate="true"/>
+    </changeSet>
+    <changeSet author="1111 (generated)" id="1702392849757-17">
+        <addForeignKeyConstraint baseColumnNames="client_id" baseTableName="accounts" constraintName="FKgymog7firrf8bnoiig61666ob" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="clients" validate="true"/>
+    </changeSet>
+    <changeSet author="1111 (generated)" id="1702392849757-18">
+        <addForeignKeyConstraint baseColumnNames="debit_account_id" baseTableName="transactions" constraintName="FKkpq7imh2rcolpghjxb6b8ouwc" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="accounts" validate="true"/>
+    </changeSet>
+    <changeSet author="1111 (generated)" id="1702392849757-19">
+        <addForeignKeyConstraint baseColumnNames="account_id" baseTableName="agreements" constraintName="FKlshrwa9mq7iar9rwxkwdrus2r" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="accounts" validate="true"/>
+    </changeSet>
+    <changeSet author="1111 (generated)" id="1702392849757-20">
+        <addForeignKeyConstraint baseColumnNames="product_id" baseTableName="agreements" constraintName="FKvtp15t5x12x5lk4akedy8e4n" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="id" referencedTableName="products" validate="true"/>
+    </changeSet>
+</databaseChangeLog>

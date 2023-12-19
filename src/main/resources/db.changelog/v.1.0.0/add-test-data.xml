@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+<!--    <property name="now" value="UNIX_TIMESTAMP()" dbms="mysql"/>-->
+
+    <changeSet id="insert manager1 data into managers table" author="AK">
+        <insert tableName="managers">
+            <column name="first_name" value="John"/>
+            <column name="last_name" value="Doe"/>
+            <column name="status" value="WORKING"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert client1 data into clients table" author="AK">
+        <insert tableName="clients">
+            <column name="status" value="ACTIVE"/>
+            <column name="tax_code" value="2976406142"/>
+            <column name="first_name" value="Dorinda"/>
+            <column name="last_name" value="Yundt"/>
+            <column name="email" value="minh.schneider@yahoo.com"/>
+            <column name="address" value="Suite 312 082 Shelba Station, East Stanton, CA 04827-6996"/>
+            <column name="phone" value="1-379-126-0996"/>
+            <column name="manager_id" value="1"/>
+<!--            <column name="created_at" valueDate="${now}"/>-->
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert client2 data into clients table" author="AK">
+        <insert tableName="clients">
+            <column name="status" value="ACTIVE"/>
+            <column name="tax_code" value="3147483647"/>
+            <column name="first_name" value="Leonel"/>
+            <column name="last_name" value="Hickle"/>
+            <column name="email" value="elouise.ledner@yahoo.com"/>
+            <column name="address" value="85723 Bergstrom Ridge, North Westonburgh, MT 75140-0316"/>
+            <column name="phone" value="861-902-0283"/>
+            <column name="manager_id" value="1"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert account1 data into accounts table" author="AK">
+        <insert tableName="accounts">
+            <column name="name" value="MyAccount"/>
+            <column name="type" value="SAVING"/>
+            <column name="status" value="ACTIVE"/>
+            <column name="balance" value="5000.00"/>
+            <column name="currency_code" value="USD"/>
+            <column name="client_id" value="1"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert account2 data into accounts table" author="AK">
+        <insert tableName="accounts">
+            <column name="name" value="MyAccountMy"/>
+            <column name="type" value="DEPOSIT"/>
+            <column name="status" value="ACTIVE"/>
+            <column name="balance" value="1000.00"/>
+            <column name="currency_code" value="USD"/>
+            <column name="client_id" value="2"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert transaction1 data into transactions table" author="AK">
+        <insert tableName="transactions">
+            <column name="type" value="TRANSFER"/>
+            <column name="amount" value="100.00"/>
+            <column name="description" value="Monthly rent payment"/>
+            <column name="debit_account_id" value="1"/>
+            <column name="credit_account_id" value="2"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert product1 data into products table" author="AK">
+        <insert tableName="products">
+            <column name="name" value="Alpha Bank Product"/>
+            <column name="status" value="ACTIVE"/>
+            <column name="currency_code" value="USD"/>
+            <column name="interest_rate" value="0.05"/>
+            <column name="product_limit" value="1000"/>
+            <column name="manager_id" value="1"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert agreement1 data into agreements table" author="AK">
+        <insert tableName="agreements">
+            <column name="interest_rate" value="0.025" />
+            <column name="status" value="ACTIVE" />
+            <column name="sum" value="100000.00" />
+            <column name="product_id" value="1" />
+            <column name="account_id" value="1" />
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

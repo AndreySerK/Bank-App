@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="drop-agreements-table" author="AK">
+        <dropTable tableName="agreements"/>
+    </changeSet>
+
+    <changeSet id="drop-products-table" author="AK">
+        <dropTable tableName="products"/>
+    </changeSet>
+
+    <changeSet id="drop-transactions-table" author="AK">
+        <dropTable tableName="transactions"/>
+    </changeSet>
+
+    <changeSet id="drop-accounts-table" author="AK">
+        <dropTable tableName="accounts"/>
+    </changeSet>
+
+    <changeSet id="drop-clients-table" author="AK">
+        <dropTable tableName="clients"/>
+    </changeSet>
+
+    <changeSet id="drop-managers-table" author="AK">
+        <dropTable tableName="managers"/>
+    </changeSet>
+
+</databaseChangeLog>
