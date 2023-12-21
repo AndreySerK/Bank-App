@@ -1,13 +1,12 @@
 package com.example.bank.controllers;
 
 import com.example.bank.dto.AccountDto;
+import com.example.bank.entity.Account;
+import com.example.bank.entity.enums.AccountStatus;
 import com.example.bank.services.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,5 +22,23 @@ public class AccountController {
     @ResponseStatus(HttpStatus.OK)
     public List<AccountDto> accountList () {
         return accountService.getAllAccounts();
+    }
+
+    @GetMapping ("/api/accounts/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Account accountById (@PathVariable Integer id) {
+        return accountService.getAccountById(id);
+    }
+
+    @PostMapping ("/api/account")
+    @ResponseStatus(HttpStatus.OK)
+    public Account addAccount (@RequestBody Account account) {
+        return accountService.addAccount(account);
+    }
+
+    @GetMapping ("/api/accounts/{status}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<AccountDto> accountsByStatus (@PathVariable AccountStatus status) {
+        return accountService.getAccountsByStatus(status);
     }
 }

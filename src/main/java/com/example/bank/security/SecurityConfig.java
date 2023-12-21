@@ -28,7 +28,7 @@ public class SecurityConfig {
     @Bean
     public UserDetailsService userDetailsService(){
 
-        UserDetails ramesh = User.builder()
+        UserDetails user = User.builder()
                 .username("user")
                 .password(passwordEncoder().encode("password"))
                 .roles("USER")
@@ -40,7 +40,7 @@ public class SecurityConfig {
                 .roles("ADMIN")
                 .build();
 
-        return new InMemoryUserDetailsManager(ramesh, admin);
+        return new InMemoryUserDetailsManager(user, admin);
     }
 
     @Bean
