@@ -1,6 +1,8 @@
 package com.example.bank.controllers;
 
 import com.example.bank.dto.AccountDto;
+import com.example.bank.dto.AddAccountDto;
+import com.example.bank.dto.ChangeAccountDto;
 import com.example.bank.entity.Account;
 import com.example.bank.entity.enums.AccountStatus;
 import com.example.bank.services.AccountService;
@@ -24,7 +26,7 @@ public class AccountController {
         return accountService.getAllAccounts();
     }
 
-    @GetMapping ("/api/accounts/{id}")
+    @GetMapping ("/api/account/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Account accountById (@PathVariable Integer id) {
         return accountService.getAccountById(id);
@@ -32,13 +34,20 @@ public class AccountController {
 
     @PostMapping ("/api/account")
     @ResponseStatus(HttpStatus.OK)
-    public Account addAccount (@RequestBody Account account) {
+    public Account addAccount (@RequestBody AddAccountDto account) {
         return accountService.addAccount(account);
     }
 
-    @GetMapping ("/api/accounts/{status}")
+    @GetMapping ("/api/account/{status}")
     @ResponseStatus(HttpStatus.OK)
     public List<AccountDto> accountsByStatus (@PathVariable AccountStatus status) {
         return accountService.getAccountsByStatus(status);
+    }
+
+    @PutMapping ("/api/account/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public Account changeAccountById (@RequestBody ChangeAccountDto account,
+                                      @PathVariable Integer id) {
+        return accountService.changeAccountById(account, id);
     }
 }

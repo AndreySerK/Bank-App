@@ -1,6 +1,5 @@
 package com.example.bank.dto;
 
-
 import com.example.bank.entity.enums.AccountStatus;
 import com.example.bank.entity.enums.AccountType;
 import com.example.bank.entity.enums.CurrencyCode;
@@ -11,7 +10,7 @@ import java.sql.Timestamp;
 
 @Data
 @AllArgsConstructor
-public class AccountDto {
+public class AddAccountDto {
 
     private String name;
 
@@ -23,9 +22,7 @@ public class AccountDto {
 
     private CurrencyCode currencyCode;
 
+    private Integer clientId;
+
     private Timestamp createdAt;
-
-    private Timestamp updatedAt;
-
-    private ClientDto client;
 }
