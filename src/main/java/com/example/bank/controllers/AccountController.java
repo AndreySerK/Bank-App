@@ -28,7 +28,7 @@ public class AccountController {
 
     @GetMapping ("/api/account/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Account accountById (@PathVariable Integer id) {
+    public AccountDto accountById (@PathVariable Integer id) {
         return accountService.getAccountById(id);
     }
 
@@ -38,7 +38,7 @@ public class AccountController {
         return accountService.addAccount(account);
     }
 
-    @GetMapping ("/api/account/{status}")
+    @GetMapping ("/api/accounts/{status}")
     @ResponseStatus(HttpStatus.OK)
     public List<AccountDto> accountsByStatus (@PathVariable AccountStatus status) {
         return accountService.getAccountsByStatus(status);

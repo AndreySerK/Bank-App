@@ -24,3 +24,7 @@ spring:
     enabled: true
     change-log: db.changelog/db.changelog-master.xml
 
+app:
+  security:
+    type: inMemory
+

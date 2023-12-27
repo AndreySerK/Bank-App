@@ -12,6 +12,7 @@ import com.example.bank.repositories.AccountRepository;
 import com.example.bank.repositories.ClientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -25,14 +26,20 @@ public class AccountService {
     private final AccountListMapper accountListMapper;
     private final ClientRepository clientRepository;
 
+    @Transactional
     public List<AccountDto> getAllAccounts() {
        return accountListMapper.toDtoList(accountRepository.findAll());
     }
 
-    public Account getAccountById(Integer id) {
-        return accountRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Account with such id not found"));
+    @Transactional
+    public AccountDto getAccountById(Integer id) {
+        return accountMapper
+                .toDto(accountRepository
+                        .findById(id)
+                        .orElseThrow(() -> new NoSuchElementException("Account with such id not found")));
     }
 
+    @Transactional
     public Account addAccount(AddAccountDto dto) {
         if (dto.getClientId() == null) {
             throw new NullPointerException("ClientId cannot be null");
@@ -63,6 +70,7 @@ public class AccountService {
         return accountDTOList;
     }
 
+    @Transactional
     public Account changeAccountById(ChangeAccountDto dto, Integer id) {
         Account account = accountRepository.findById(id).orElseThrow(
                 () -> new NoSuchElementException("Account with such id not found")
