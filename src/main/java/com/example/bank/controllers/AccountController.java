@@ -8,8 +8,10 @@ import com.example.bank.entity.enums.AccountStatus;
 import com.example.bank.services.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 @RestController
@@ -32,10 +34,12 @@ public class AccountController {
         return accountService.getAccountById(id);
     }
 
-    @PostMapping ("/api/account")
+    @PostMapping ("/api/account/post")
     @ResponseStatus(HttpStatus.OK)
-    public Account addAccount (@RequestBody AddAccountDto account) {
-        return accountService.addAccount(account);
+    public ResponseEntity<String> addAccount (@RequestBody AddAccountDto account) {
+        return ResponseEntity.ok(
+                MessageFormat.format("Account with name: {0} is added", account.getName())
+        );
     }
 
     @GetMapping ("/api/accounts/{status}")
