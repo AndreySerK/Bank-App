@@ -71,18 +71,17 @@ public class AccountService {
     }
 
     @Transactional
-    public Account changeAccountById(ChangeAccountDto dto, Integer id) {
+    public void changeAccountById(ChangeAccountDto dto, Integer id) {
         Account account = accountRepository.findById(id).orElseThrow(
                 () -> new NoSuchElementException("Account with such id not found")
         );
 
-        accountRepository.deleteById(id);
         account.setName(dto.getName());
         account.setBalance(dto.getBalance());
         account.setStatus(dto.getStatus());
         account.setType(dto.getType());
         account.setCurrencyCode(dto.getCurrencyCode());
 
-        return accountRepository.save(account);
+        accountRepository.save(account);
     }
 }
