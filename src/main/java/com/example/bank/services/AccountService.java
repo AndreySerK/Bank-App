@@ -10,14 +10,17 @@ import com.example.bank.mappers.AccountListMapper;
 import com.example.bank.mappers.AccountMapper;
 import com.example.bank.repositories.AccountRepository;
 import com.example.bank.repositories.ClientRepository;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
+@Validated
 @RequiredArgsConstructor
 public class AccountService {
 
@@ -40,14 +43,7 @@ public class AccountService {
     }
 
     @Transactional
-    public Account addAccount(AddAccountDto dto) {
-        if (dto.getClientId() == null) {
-            throw new NullPointerException("ClientId cannot be null");
-        }
-
-        if (dto.getBalance() < 0.0) {
-            throw new IllegalArgumentException("Balance cannot be less then 0");
-        }
+    public Account addAccount(@Valid AddAccountDto dto) {
 
         Integer id = dto.getClientId();
         Client client = clientRepository.findById(id).orElseThrow(
@@ -71,7 +67,7 @@ public class AccountService {
     }
 
     @Transactional
-    public void changeAccountById(ChangeAccountDto dto, Integer id) {
+    public void changeAccountById(@Valid ChangeAccountDto dto, Integer id) {
         Account account = accountRepository.findById(id).orElseThrow(
                 () -> new NoSuchElementException("Account with such id not found")
         );
