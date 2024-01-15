@@ -29,12 +29,11 @@ public class AccountService {
     private final AccountListMapper accountListMapper;
     private final ClientRepository clientRepository;
 
-    @Transactional
+
     public List<AccountDto> getAllAccounts() {
        return accountListMapper.toDtoList(accountRepository.findAll());
     }
 
-    @Transactional
     public AccountDto getAccountById(Integer id) {
         return accountMapper
                 .toDto(accountRepository
@@ -42,7 +41,6 @@ public class AccountService {
                         .orElseThrow(() -> new NoSuchElementException("Account with such id not found")));
     }
 
-    @Transactional
     public Account addAccount(@Valid AddAccountDto dto) {
 
         Integer id = dto.getClientId();
@@ -66,7 +64,6 @@ public class AccountService {
         return accountDTOList;
     }
 
-    @Transactional
     public void changeAccountById(@Valid ChangeAccountDto dto, Integer id) {
         Account account = accountRepository.findById(id).orElseThrow(
                 () -> new NoSuchElementException("Account with such id not found")

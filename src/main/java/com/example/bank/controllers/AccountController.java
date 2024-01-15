@@ -26,32 +26,32 @@ public class AccountController {
 
     @GetMapping ("/api/accounts/all")
     @ResponseStatus(HttpStatus.OK)
-    public List<AccountDto> accountList () {
+    public List<AccountDto> getAll () {
         return accountService.getAllAccounts();
     }
 
     @GetMapping ("/api/account/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public AccountDto accountById (@PathVariable Integer id) {
+    public AccountDto getById (@PathVariable Integer id) {
         return accountService.getAccountById(id);
     }
 
     @PostMapping ("/api/account/post")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<AccountDto> addAccount (@RequestBody AddAccountDto account) {
+    public ResponseEntity<AccountDto> create (@RequestBody AddAccountDto account) {
         Account account1 = accountService.addAccount(account);
         return ResponseEntity.ok(accountMapper.toDto(account1));
     }
 
     @GetMapping ("/api/accounts/{status}")
     @ResponseStatus(HttpStatus.OK)
-    public List<AccountDto> accountsByStatus (@PathVariable AccountStatus status) {
+    public List<AccountDto> getByStatus (@PathVariable AccountStatus status) {
         return accountService.getAccountsByStatus(status);
     }
 
     @PutMapping ("/api/account/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<AccountDto> changeAccountById (@RequestBody ChangeAccountDto account,
+    public ResponseEntity<AccountDto> changeById (@RequestBody ChangeAccountDto account,
                                       @PathVariable Integer id) {
         accountService.changeAccountById(account, id);
         return ResponseEntity.ok(accountService.getAccountById(id));

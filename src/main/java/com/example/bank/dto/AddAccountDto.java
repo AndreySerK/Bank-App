@@ -3,10 +3,7 @@ package com.example.bank.dto;
 import com.example.bank.entity.enums.AccountStatus;
 import com.example.bank.entity.enums.AccountType;
 import com.example.bank.entity.enums.CurrencyCode;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -33,6 +30,7 @@ public class AddAccountDto {
     private AccountStatus status;
 
     @NotNull
+    @PositiveOrZero
     private double balance;
 
     @NotNull
