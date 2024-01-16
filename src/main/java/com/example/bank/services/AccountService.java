@@ -1,8 +1,8 @@
 package com.example.bank.services;
 
 import com.example.bank.dto.AccountDto;
-import com.example.bank.dto.AddAccountDto;
 import com.example.bank.dto.ChangeAccountDto;
+import com.example.bank.dto.CreateAccountDto;
 import com.example.bank.entity.Account;
 import com.example.bank.entity.Client;
 import com.example.bank.entity.enums.AccountStatus;
@@ -13,7 +13,6 @@ import com.example.bank.repositories.ClientRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
@@ -41,7 +40,7 @@ public class AccountService {
                         .orElseThrow(() -> new NoSuchElementException("Account with such id not found")));
     }
 
-    public Account addAccount(@Valid AddAccountDto dto) {
+    public Account createAccount(@Valid CreateAccountDto dto) {
 
         Integer id = dto.getClientId();
         Client client = clientRepository.findById(id).orElseThrow(

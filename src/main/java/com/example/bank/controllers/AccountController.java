@@ -1,18 +1,18 @@
 package com.example.bank.controllers;
 
 import com.example.bank.dto.AccountDto;
-import com.example.bank.dto.AddAccountDto;
 import com.example.bank.dto.ChangeAccountDto;
+import com.example.bank.dto.CreateAccountDto;
 import com.example.bank.entity.Account;
 import com.example.bank.entity.enums.AccountStatus;
 import com.example.bank.mappers.AccountMapper;
+import com.example.bank.response.accounts.GetAllAccountsResponse;
 import com.example.bank.services.AccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.MessageFormat;
 import java.util.List;
 
 @RestController
@@ -26,8 +26,8 @@ public class AccountController {
 
     @GetMapping ("/api/accounts/all")
     @ResponseStatus(HttpStatus.OK)
-    public List<AccountDto> getAll () {
-        return accountService.getAllAccounts();
+    public GetAllAccountsResponse getAll () {
+        return new GetAllAccountsResponse(accountService.getAllAccounts());
     }
 
     @GetMapping ("/api/account/{id}")
@@ -38,8 +38,8 @@ public class AccountController {
 
     @PostMapping ("/api/account/post")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<AccountDto> create (@RequestBody AddAccountDto account) {
-        Account account1 = accountService.addAccount(account);
+    public ResponseEntity<AccountDto> create (@RequestBody CreateAccountDto account) {
+        Account account1 = accountService.createAccount(account);
         return ResponseEntity.ok(accountMapper.toDto(account1));
     }
 

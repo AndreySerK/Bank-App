@@ -6,10 +6,12 @@ import com.example.bank.entity.enums.CurrencyCode;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class ChangeAccountDto {
 
     @NotBlank(message = "Name must be not blank")

@@ -6,12 +6,14 @@ import com.example.bank.entity.enums.CurrencyCode;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 
 @Data
 @AllArgsConstructor
-public class AddAccountDto {
+@NoArgsConstructor
+public class CreateAccountDto {
 
     @NotBlank(message = "Name must be not blank")
     @Min(
