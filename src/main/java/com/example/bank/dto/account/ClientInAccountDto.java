@@ -1,4 +1,4 @@
-package com.example.bank.dto;
+package com.example.bank.dto.account;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ClientDto {
+public class ClientInAccountDto {
 
     private String firstName;
 

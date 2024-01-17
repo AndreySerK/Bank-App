@@ -1,7 +1,7 @@
-package com.example.bank.mappers;
+package com.example.bank.mappers.account;
 
-import com.example.bank.dto.AccountDto;
-import com.example.bank.dto.CreateAccountDto;
+import com.example.bank.dto.account.AccountDto;
+import com.example.bank.dto.account.AddAccountDto;
 import com.example.bank.entity.Account;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 public interface AccountMapper {
 
     @Mapping(target = "createdAt", expression = "java(new Timestamp(System.currentTimeMillis()))")
-    Account toEntity (CreateAccountDto account);
+    Account toEntity (AddAccountDto account);
 
     AccountDto toDto (Account account);
 }

@@ -9,8 +9,7 @@ import java.util.List;
 
 
 @Repository
-public interface AccountRepository extends JpaRepository <Account, Integer> {
+public interface AccountRepository extends JpaRepository<Account, Integer> {
 
-    Account getAccountById (Long id);
-    List<Account> findAccountsByStatus (AccountStatus status);
+    List<Account> findAccountsByStatus(AccountStatus status);
 }

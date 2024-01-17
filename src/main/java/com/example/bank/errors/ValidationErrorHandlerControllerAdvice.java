@@ -3,6 +3,7 @@ package com.example.bank.errors;
 import com.example.bank.response.ValidationErrorResponse;
 import com.example.bank.response.Violation;
 import jakarta.validation.ConstraintViolationException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -14,7 +15,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @ControllerAdvice
- public class ErrorHandlingControllerAdvice {
+@Slf4j
+ public class ValidationErrorHandlerControllerAdvice {
 
     @ResponseBody
     @ExceptionHandler(ConstraintViolationException.class)
@@ -25,7 +27,7 @@ import java.util.stream.Collectors;
         final List<Violation> violations = e.getConstraintViolations().stream()
                 .map(
                         violation -> new Violation(
-                                violation.getPropertyPath().toString(),
+                                violation.getPropertyPath().toString().split("\\.")[2],
                                 violation.getMessage()
                         )
                 )
@@ -44,5 +46,4 @@ import java.util.stream.Collectors;
                 .collect(Collectors.toList());
         return new ValidationErrorResponse(false, violations);
     }
-
 }

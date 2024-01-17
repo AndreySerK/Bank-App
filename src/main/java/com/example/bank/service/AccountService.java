@@ -1,15 +1,16 @@
-package com.example.bank.services;
+package com.example.bank.service;
 
-import com.example.bank.dto.AccountDto;
-import com.example.bank.dto.ChangeAccountDto;
-import com.example.bank.dto.CreateAccountDto;
+import com.example.bank.dto.account.AccountDto;
+import com.example.bank.dto.account.AddAccountDto;
+import com.example.bank.dto.account.ChangeAccountDto;
 import com.example.bank.entity.Account;
 import com.example.bank.entity.Client;
 import com.example.bank.entity.enums.AccountStatus;
-import com.example.bank.mappers.AccountListMapper;
-import com.example.bank.mappers.AccountMapper;
+import com.example.bank.mappers.account.AccountListMapper;
+import com.example.bank.mappers.account.AccountMapper;
 import com.example.bank.repositories.AccountRepository;
 import com.example.bank.repositories.ClientRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -37,18 +38,19 @@ public class AccountService {
         return accountMapper
                 .toDto(accountRepository
                         .findById(id)
-                        .orElseThrow(() -> new NoSuchElementException("Account with such id not found")));
+                        .orElseThrow(() -> new EntityNotFoundException("Account with id = " + id + " not found")));
     }
 
-    public Account createAccount(@Valid CreateAccountDto dto) {
+    public AccountDto createAccount(@Valid AddAccountDto dto) {
 
         Integer id = dto.getClientId();
         Client client = clientRepository.findById(id).orElseThrow(
-                () -> new NoSuchElementException("Client with such id not found")
+                () -> new NoSuchElementException("Client with id = " + id + " not found")
         );
         Account newAccount = accountMapper.toEntity(dto);
         newAccount.setClient(client);
-        return accountRepository.save(newAccount);
+        accountRepository.save(newAccount);
+        return accountMapper.toDto(newAccount);
     }
 
     public List<AccountDto> getAccountsByStatus(AccountStatus status) {
@@ -63,9 +65,9 @@ public class AccountService {
         return accountDTOList;
     }
 
-    public void changeAccountById(@Valid ChangeAccountDto dto, Integer id) {
+    public AccountDto changeAccountById(@Valid ChangeAccountDto dto, Integer id) {
         Account account = accountRepository.findById(id).orElseThrow(
-                () -> new NoSuchElementException("Account with such id not found")
+                () -> new EntityNotFoundException("Account with id = " + id + " not found")
         );
 
         account.setName(dto.getName());
@@ -75,5 +77,6 @@ public class AccountService {
         account.setCurrencyCode(dto.getCurrencyCode());
 
         accountRepository.save(account);
+        return accountMapper.toDto(account);
     }
 }

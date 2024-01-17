@@ -1,4 +1,4 @@
-package com.example.bank.dto;
+package com.example.bank.dto.account;
 
 import com.example.bank.entity.enums.AccountStatus;
 import com.example.bank.entity.enums.AccountType;
@@ -13,32 +13,26 @@ import java.sql.Timestamp;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateAccountDto {
+public class AddAccountDto {
 
-    @NotBlank(message = "Name must be not blank")
-    @Min(
-            value = 3,
-            message = "Name length must be greater then 3 symbols"
-    )
-    @Max(
-            value = 30,
-            message = "Name length must be less then 30 symbols")
+    @NotBlank(message = "Name must not be blank")
+    @Size(min = 3, max = 30, message = "Name length must be from 3 to 30 symbols")
     private String name;
 
-    @NotNull
+    @NotNull(message = "The field must not be empty")
     private AccountType type;
 
-    @NotNull
+    @NotNull(message = "The field must not be empty")
     private AccountStatus status;
 
-    @NotNull
-    @PositiveOrZero
+    @NotNull(message = "The field must not be empty")
+    @PositiveOrZero(message = "The field must be positive or zero")
     private double balance;
 
-    @NotNull
+    @NotNull(message = "The field must not be empty")
     private CurrencyCode currencyCode;
 
-    @NotNull
+    @NotNull(message = "The field must not be empty")
     private Integer clientId;
 
     private Timestamp createdAt;

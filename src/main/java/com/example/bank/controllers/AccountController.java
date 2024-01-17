@@ -1,19 +1,15 @@
 package com.example.bank.controllers;
 
-import com.example.bank.dto.AccountDto;
-import com.example.bank.dto.ChangeAccountDto;
-import com.example.bank.dto.CreateAccountDto;
-import com.example.bank.entity.Account;
+import com.example.bank.dto.account.AccountDto;
+import com.example.bank.dto.account.AddAccountDto;
+import com.example.bank.dto.account.ChangeAccountDto;
 import com.example.bank.entity.enums.AccountStatus;
-import com.example.bank.mappers.AccountMapper;
-import com.example.bank.response.accounts.GetAllAccountsResponse;
-import com.example.bank.services.AccountService;
+import com.example.bank.response.account.ListOfAccountsResponse;
+import com.example.bank.service.AccountService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/auth")
@@ -21,13 +17,11 @@ import java.util.List;
 public class AccountController {
 
     private final AccountService accountService;
-    private final AccountMapper accountMapper;
-
 
     @GetMapping ("/api/accounts/all")
     @ResponseStatus(HttpStatus.OK)
-    public GetAllAccountsResponse getAll () {
-        return new GetAllAccountsResponse(accountService.getAllAccounts());
+    public ListOfAccountsResponse getAll () {
+        return new ListOfAccountsResponse(accountService.getAllAccounts());
     }
 
     @GetMapping ("/api/account/{id}")
@@ -38,22 +32,20 @@ public class AccountController {
 
     @PostMapping ("/api/account/post")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<AccountDto> create (@RequestBody CreateAccountDto account) {
-        Account account1 = accountService.createAccount(account);
-        return ResponseEntity.ok(accountMapper.toDto(account1));
+    public AccountDto create (@RequestBody @Valid AddAccountDto account) {
+        return accountService.createAccount(account);
     }
 
     @GetMapping ("/api/accounts/{status}")
     @ResponseStatus(HttpStatus.OK)
-    public List<AccountDto> getByStatus (@PathVariable AccountStatus status) {
-        return accountService.getAccountsByStatus(status);
+    public ListOfAccountsResponse getByStatus (@PathVariable AccountStatus status) {
+        return new ListOfAccountsResponse(accountService.getAccountsByStatus(status));
     }
 
     @PutMapping ("/api/account/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<AccountDto> changeById (@RequestBody ChangeAccountDto account,
+    public AccountDto changeById (@RequestBody ChangeAccountDto account,
                                       @PathVariable Integer id) {
-        accountService.changeAccountById(account, id);
-        return ResponseEntity.ok(accountService.getAccountById(id));
+        return accountService.changeAccountById(account, id);
     }
 }

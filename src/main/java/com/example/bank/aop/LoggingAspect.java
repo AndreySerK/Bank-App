@@ -13,7 +13,7 @@ public class LoggingAspect {
 
     private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
-    @Before("execution(* com.example.bank.services.AccountService.*(..))")
+    @Before("execution(* com.example.bank.service.AccountService.*(..))")
     public void logBeforeAllMethods(JoinPoint joinPoint) {
         LOGGER.debug("Service methode called: {}", joinPoint.getSignature().getName());
     }
