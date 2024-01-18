@@ -11,6 +11,7 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
@@ -36,6 +37,7 @@ public class AgreementService {
                         .orElseThrow(() -> new EntityNotFoundException("Agreement with id = " + id + " not found")));
     }
 
+    @Transactional
     public AgreementDto createAgreement(@Valid AgreementDto dto) {
 
         Agreement newAgreement = agreementMapper.toEntity(dto);
@@ -55,6 +57,7 @@ public class AgreementService {
         return agreementDTOList;
     }
 
+    @Transactional
     public AgreementDto changeAgreementById(@Valid ChangeAgreementDto dto, Integer id) {
         Agreement agreement = agreementRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Agreement with id = " + id + " not found")

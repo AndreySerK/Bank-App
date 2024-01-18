@@ -4,7 +4,6 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
-<!--    <property name="now" value="UNIX_TIMESTAMP()" dbms="mysql"/>-->
 
     <changeSet id="insert manager1 data into managers table" author="AK">
         <insert tableName="managers">
@@ -70,6 +69,16 @@
             <column name="description" value="Monthly rent payment"/>
             <column name="debit_account_id" value="1"/>
             <column name="credit_account_id" value="2"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="insert transaction2 data into transactions table" author="AK">
+        <insert tableName="transactions">
+            <column name="type" value="TRANSFER"/>
+            <column name="amount" value="10.00"/>
+            <column name="description" value="Refund of overpayment"/>
+            <column name="debit_account_id" value="2"/>
+            <column name="credit_account_id" value="1"/>
         </insert>
     </changeSet>
 

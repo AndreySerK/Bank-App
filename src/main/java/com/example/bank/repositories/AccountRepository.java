@@ -12,4 +12,6 @@ import java.util.List;
 public interface AccountRepository extends JpaRepository<Account, Integer> {
 
     List<Account> findAccountsByStatus(AccountStatus status);
+
+    Account findById(Long accountId);
 }

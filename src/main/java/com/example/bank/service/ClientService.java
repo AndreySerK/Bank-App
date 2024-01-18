@@ -11,6 +11,7 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
@@ -36,6 +37,7 @@ public class ClientService {
                         .orElseThrow(() -> new EntityNotFoundException("Client with id = " + id + " not found")));
     }
 
+    @Transactional
     public ClientDto createClient(@Valid ClientDto dto) {
 
         Client newClient = clientMapper.toEntity(dto);
@@ -55,6 +57,7 @@ public class ClientService {
         return clientDTOList;
     }
 
+    @Transactional
     public ClientDto changeClientById(@Valid ChangeClientDto dto, Integer id) {
         Client client = clientRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Client with id = " + id + " not found")

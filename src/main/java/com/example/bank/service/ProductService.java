@@ -11,6 +11,7 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
@@ -36,6 +37,7 @@ public class ProductService {
                         .orElseThrow(() -> new EntityNotFoundException("Product with id = " + id + " not found")));
     }
 
+    @Transactional
     public ProductDto createProduct(@Valid ProductDto dto) {
 
         Product newProduct = productMapper.toEntity(dto);
@@ -55,6 +57,7 @@ public class ProductService {
         return productDTOList;
     }
 
+    @Transactional
     public ProductDto changeProductById(@Valid ChangeProductDto dto, Integer id) {
         Product product = productRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Product with id = " + id + " not found")

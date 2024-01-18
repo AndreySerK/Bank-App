@@ -11,6 +11,7 @@ import com.example.bank.dto.client.ClientDto;
 import com.example.bank.dto.manager.ManagerDto;
 import com.example.bank.dto.product.ChangeProductDto;
 import com.example.bank.dto.product.ProductDto;
+import com.example.bank.dto.transaction.TransactionDto;
 import com.example.bank.entity.*;
 import com.example.bank.entity.enums.*;
 import org.springframework.core.io.DefaultResourceLoader;
@@ -117,6 +118,35 @@ public class TestUtils {
         agreement.setSum(BigDecimal.valueOf(55000));
 
         return agreement;
+    }
+
+    public static Transaction createTransaction (Long id) {
+
+        Transaction transaction = new Transaction();
+
+        transaction.setId(id);
+        transaction.setCreditAccount(createAccount(1L, createClient(1L, createManager(1L))));
+        transaction.setDebitAccount(createAccount(2L, createClient(2L, createManager(2L))));
+        transaction.setCreatedAt(Timestamp.valueOf("2024-02-01 00:00:00"));
+        transaction.setAmount(10000);
+        transaction.setType(TransactionType.TRANSFER);
+        transaction.setDescription("Transfer money");
+
+        return transaction;
+    }
+
+    public static TransactionDto createTransactionDto (Long id) {
+
+        TransactionDto dto = new TransactionDto();
+
+        dto.setCreditAccountId(1L);
+        dto.setDebitAccountId(2L);
+        dto.setCreatedAt(Timestamp.valueOf("2024-02-01 00:00:00"));
+        dto.setAmount(10000);
+        dto.setType(TransactionType.TRANSFER);
+        dto.setDescription("Transfer money");
+
+        return dto;
     }
 
     public static AgreementDto createAgreementDto (Long id) {

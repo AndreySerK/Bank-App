@@ -14,6 +14,7 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
@@ -41,6 +42,7 @@ public class AccountService {
                         .orElseThrow(() -> new EntityNotFoundException("Account with id = " + id + " not found")));
     }
 
+    @Transactional
     public AccountDto createAccount(@Valid AddAccountDto dto) {
 
         Integer id = dto.getClientId();
@@ -65,6 +67,7 @@ public class AccountService {
         return accountDTOList;
     }
 
+    @Transactional
     public AccountDto changeAccountById(@Valid ChangeAccountDto dto, Integer id) {
         Account account = accountRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Account with id = " + id + " not found")

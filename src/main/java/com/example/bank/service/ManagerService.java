@@ -10,6 +10,7 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
@@ -34,6 +35,7 @@ public class ManagerService {
                         .orElseThrow(() -> new EntityNotFoundException("Manager with id = " + id + " not found")));
     }
 
+    @Transactional
     public ManagerDto createManager(@Valid ManagerDto dto) {
 
         Manager newManager = managerMapper.toEntity(dto);
@@ -53,6 +55,7 @@ public class ManagerService {
         return accountDTOList;
     }
 
+    @Transactional
     public ManagerDto changeManagerById(@Valid ManagerDto dto, Integer id) {
         Manager Manager = managerRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("Manager with id = " + id + " not found")
