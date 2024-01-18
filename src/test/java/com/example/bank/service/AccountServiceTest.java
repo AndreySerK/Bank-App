@@ -52,7 +52,7 @@ public class AccountServiceTest {
     public void getAccountByIdTest_whenGetAccountById_thenReturnAccountById() throws Exception {
 
         Account account = createAccount(1L, createClient(1L, createManager(1L)));
-        AccountDto expectedAccountDto = createAccountDto(1L, createClientDto(1L));
+        AccountDto expectedAccountDto = createAccountDto(1L, createClientInAccountDto(1L));
 
         when(accountRepository.findById(1)).thenReturn(Optional.of(account));
 

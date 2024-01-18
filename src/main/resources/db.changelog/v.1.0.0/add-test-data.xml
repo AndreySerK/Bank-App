@@ -24,7 +24,7 @@
             <column name="address" value="Suite 312 082 Shelba Station, East Stanton, CA 04827-6996"/>
             <column name="phone" value="1-379-126-0996"/>
             <column name="manager_id" value="1"/>
-<!--            <column name="created_at" valueDate="${now}"/>-->
+
         </insert>
     </changeSet>
 

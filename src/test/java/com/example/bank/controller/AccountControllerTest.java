@@ -26,8 +26,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.bank.TestUtils.createAccountDto;
-import static com.example.bank.TestUtils.createClientDto;
+import static com.example.bank.TestUtils.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -49,8 +48,8 @@ public class AccountControllerTest  {
     public void getAllTest_whenFindAll_thenReturnAllAccounts() throws Exception {
 
         List<AccountDto> accountDtoList = new ArrayList<>();
-        accountDtoList.add(createAccountDto(1L, createClientDto(1L)));
-        accountDtoList.add(createAccountDto(2L, createClientDto(2L)));
+        accountDtoList.add(createAccountDto(1L, createClientInAccountDto(1L)));
+        accountDtoList.add(createAccountDto(2L, createClientInAccountDto(2L)));
 
 
         Mockito.when(accountService.getAllAccounts()).thenReturn(accountDtoList);
@@ -72,7 +71,7 @@ public class AccountControllerTest  {
     @WithMockUser(username = "user", password = "user")
     public void getByIdTest_whenGetAccountById_thenReturnAccountById() throws Exception {
 
-        AccountDto accountDto = createAccountDto(1L, createClientDto(1L));
+        AccountDto accountDto = createAccountDto(1L, createClientInAccountDto(1L));
 
         Mockito.when(accountService.getAccountById(1)).thenReturn(accountDto);
 
@@ -94,8 +93,8 @@ public class AccountControllerTest  {
     public void getByStatusTest_whenGetAccountByStatus_thenReturnAccountByStatus() throws Exception {
 
         List<AccountDto> accountDtoList = new ArrayList<>();
-        accountDtoList.add(createAccountDto(1L, createClientDto(1L)));
-        accountDtoList.add(createAccountDto(2L, createClientDto(2L)));
+        accountDtoList.add(createAccountDto(1L, createClientInAccountDto(1L)));
+        accountDtoList.add(createAccountDto(2L, createClientInAccountDto(2L)));
 
 
         Mockito.when(accountService.getAccountsByStatus(AccountStatus.ACTIVE)).thenReturn(accountDtoList);
@@ -118,7 +117,7 @@ public class AccountControllerTest  {
     public void createTest_whenCreateAccount_thenReturnNewAccount() throws Exception {
 
         AddAccountDto addAccountDto = TestUtils.getAddAccountDto(1);
-        AccountDto accountDto = createAccountDto(1L, createClientDto(1L));
+        AccountDto accountDto = createAccountDto(1L, createClientInAccountDto(1L));
 
         Mockito.when(accountService.createAccount(addAccountDto)).thenReturn(accountDto);
 

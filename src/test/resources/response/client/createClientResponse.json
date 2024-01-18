@@ -1,0 +1,12 @@
+{
+  "firstName": "Mark",
+  "lastName": "Smith",
+  "taxCode": "5658380715",
+  "status": "ACTIVE",
+  "email": "mark@gmail.com",
+  "phone": "19990006677",
+  "address": "18485 Ronald Tunnel, London",
+  "createdAt": "2024-01-31T23:00:00.000+00:00",
+  "updatedAt": null,
+  "managerId": 1
+}

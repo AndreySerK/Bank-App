@@ -23,14 +23,14 @@ public class ChangeClientDto {
     @NotBlank(message = "The field must not be blank")
     private String taxCode;
 
-    @NotBlank(message = "The field must not be blank")
+    @NotNull(message = "The field must not be empty")
     private ClientStatus status;
 
     @Email(message = "Please provide a valid email address")
     private String email;
 
     @NotBlank(message = "The field must not be blank")
-    @Digits(integer = 10, fraction = 0)
+    @Digits(integer = 11, fraction = 0)
     private String phone;
 
     @NotBlank(message = "The field must not be blank")

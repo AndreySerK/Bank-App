@@ -40,4 +40,13 @@ public class AccountRepositoryTest {
         assertThat(actualList).isNotNull();
         assertEquals(2, actualList.size());
     }
+
+    @Test
+    public void findAllAccountsTest_whenFoundAllAccounts_thenReturnAllAccounts() throws Exception {
+
+        List<Account> actualList = accountRepository.findAll();
+
+        assertThat(actualList).isNotNull();
+        assertEquals(2, actualList.size());
+    }
 }

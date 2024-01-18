@@ -3,7 +3,9 @@ package com.example.bank;
 import com.example.bank.dto.account.AccountDto;
 import com.example.bank.dto.account.AddAccountDto;
 import com.example.bank.dto.account.ChangeAccountDto;
-import com.example.bank.dto.account.ClientDto;
+import com.example.bank.dto.account.ClientInAccountDto;
+import com.example.bank.dto.client.ChangeClientDto;
+import com.example.bank.dto.client.ClientDto;
 import com.example.bank.entity.Account;
 import com.example.bank.entity.Client;
 import com.example.bank.entity.Manager;
@@ -80,7 +82,7 @@ public class TestUtils {
         return manager;
     }
 
-    public static AccountDto createAccountDto (Long id, ClientDto clientDto) {
+    public static AccountDto createAccountDto (Long id, ClientInAccountDto clientDto) {
 
         AccountDto accountDto = new AccountDto();
         accountDto.setName("MyAccount");
@@ -110,7 +112,7 @@ public class TestUtils {
     }
     public static AccountDto getChangedAccountDto (Long id, ChangeAccountDto changeAccountDto) {
 
-        AccountDto accountDto = createAccountDto(id, createClientDto(1L));
+        AccountDto accountDto = createAccountDto(id, createClientInAccountDto(1L));
         accountDto.setName(changeAccountDto.getName());
         accountDto.setType(changeAccountDto.getType());
         accountDto.setStatus(changeAccountDto.getStatus());
@@ -120,14 +122,45 @@ public class TestUtils {
         return accountDto;
     }
 
-    public static ClientDto createClientDto (Long id) {
+    public static ClientInAccountDto createClientInAccountDto (Long id) {
 
-        ClientDto clientDto = new ClientDto();
+        ClientInAccountDto clientDto = new ClientInAccountDto();
 
         clientDto.setFirstName("Mark");
         clientDto.setLastName("Smith");
         clientDto.setEmail("mark@gmail.com");
         clientDto.setPhone("19990006677");
+
+        return clientDto;
+    }
+
+    public static ClientDto createClientDto (Long id, Long managerId) {
+
+        ClientDto clientDto= new ClientDto(
+                "Mark",
+                "Smith",
+                "5658380715",
+                ClientStatus.ACTIVE,
+                "mark@gmail.com",
+                "19990006677",
+                "18485 Ronald Tunnel, London",
+                Timestamp.valueOf("2024-02-01 00:00:00"),
+                null,
+                1L
+        );
+        return clientDto;
+    }
+
+    public static ClientDto getChangedClientDto (Long id, ChangeClientDto dto) {
+
+        ClientDto clientDto = createClientDto(1L, 1L);
+        clientDto.setFirstName(dto.getFirstName());
+        clientDto.setLastName(dto.getLastName());
+        clientDto.setTaxCode(dto.getTaxCode());
+        clientDto.setEmail(dto.getEmail());
+        clientDto.setAddress(dto.getAddress());
+        clientDto.setPhone(dto.getPhone());
+        clientDto.setStatus(dto.getStatus());
 
         return clientDto;
     }
