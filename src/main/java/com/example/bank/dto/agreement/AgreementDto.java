@@ -1,35 +1,33 @@
-package com.example.bank.dto.product;
+package com.example.bank.dto.agreement;
 
-import com.example.bank.entity.enums.CurrencyCode;
-import com.example.bank.entity.enums.ProductStatus;
-import jakarta.validation.constraints.NotBlank;
+import com.example.bank.entity.enums.AgreementStatus;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductDto {
-
-
-    @NotBlank(message = "Name must not be blank")
-    private String name;
+public class AgreementDto {
 
     @NotNull(message = "The field must not be empty")
-    private ProductStatus status;
+    private Long accountId;
 
     @NotNull(message = "The field must not be empty")
-    private CurrencyCode currencyCode;
+    private Long productId;
 
     @NotNull(message = "The field must not be empty")
-    private int productLimit;
+    private AgreementStatus status;
 
     @NotNull(message = "The field must not be empty")
-    private double interestRate;
+    private BigDecimal sum;
+
+    @NotNull(message = "The field must not be empty")
+    private BigDecimal interestRate;
 
     private Timestamp createdAt;
 

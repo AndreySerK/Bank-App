@@ -4,15 +4,14 @@ import com.example.bank.dto.account.AccountDto;
 import com.example.bank.dto.account.AddAccountDto;
 import com.example.bank.dto.account.ChangeAccountDto;
 import com.example.bank.dto.account.ClientInAccountDto;
+import com.example.bank.dto.agreement.AgreementDto;
+import com.example.bank.dto.agreement.ChangeAgreementDto;
 import com.example.bank.dto.client.ChangeClientDto;
 import com.example.bank.dto.client.ClientDto;
 import com.example.bank.dto.manager.ManagerDto;
 import com.example.bank.dto.product.ChangeProductDto;
 import com.example.bank.dto.product.ProductDto;
-import com.example.bank.entity.Account;
-import com.example.bank.entity.Client;
-import com.example.bank.entity.Manager;
-import com.example.bank.entity.Product;
+import com.example.bank.entity.*;
 import com.example.bank.entity.enums.*;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
@@ -22,6 +21,7 @@ import org.springframework.util.FileCopyUtils;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
 import java.text.MessageFormat;
@@ -103,6 +103,37 @@ public class TestUtils {
         return product;
     }
 
+    public static Agreement createAgreement (Long id) {
+
+        Agreement agreement = new Agreement();
+
+        agreement.setId(id);
+        agreement.setAccount(createAccount(1L, createClient(1L, createManager(1L))));
+        agreement.setProduct(createProduct(1L, 1L));
+        agreement.setCreatedAt(Timestamp.valueOf("2024-02-01 00:00:00"));
+        agreement.setUpdatedAt(null);
+        agreement.setInterestRate(BigDecimal.valueOf(0.001));
+        agreement.setStatus(AgreementStatus.ACTIVE);
+        agreement.setSum(BigDecimal.valueOf(55000));
+
+        return agreement;
+    }
+
+    public static AgreementDto createAgreementDto (Long id) {
+
+        AgreementDto agreementDto = new AgreementDto();
+
+        agreementDto.setAccountId(1L);
+        agreementDto.setProductId(1L);
+        agreementDto.setCreatedAt(Timestamp.valueOf("2024-02-01 00:00:00"));
+        agreementDto.setUpdatedAt(null);
+        agreementDto.setInterestRate(BigDecimal.valueOf(0.001));
+        agreementDto.setStatus(AgreementStatus.ACTIVE);
+        agreementDto.setSum(BigDecimal.valueOf(55000));
+
+        return agreementDto;
+    }
+
     public static ProductDto createProductDto (Long id) {
 
         ProductDto productDto = new ProductDto();
@@ -167,6 +198,16 @@ public class TestUtils {
         accountDto.setCurrencyCode(changeAccountDto.getCurrencyCode());
 
         return accountDto;
+    }
+
+    public static AgreementDto getChangedAgreementDto (Long id, ChangeAgreementDto changeAgreementDto) {
+
+        AgreementDto agreementDto = createAgreementDto(id);
+        agreementDto.setStatus(changeAgreementDto.getStatus());
+        agreementDto.setSum(changeAgreementDto.getSum());
+        agreementDto.setInterestRate(changeAgreementDto.getInterestRate());
+
+        return agreementDto;
     }
 
     public static ProductDto getChangedProductDto (Long id, ChangeProductDto changeProductDto) {

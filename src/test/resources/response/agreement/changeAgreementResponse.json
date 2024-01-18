@@ -1,0 +1,9 @@
+{
+  "accountId": 1,
+  "productId": 1,
+  "status": "CLOSED",
+  "sum": 20000,
+  "interestRate": 0.002,
+  "createdAt": "2024-01-31T23:00:00.000+00:00",
+  "updatedAt": null
+}
