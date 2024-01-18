@@ -1,0 +1,14 @@
+{
+  "managers": [
+    {
+      "firstName": "John",
+      "lastName": "Doe",
+      "status": "WORKING"
+    },
+    {
+      "firstName": "John",
+      "lastName": "Doe",
+      "status": "WORKING"
+    }
+  ]
+}

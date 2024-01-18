@@ -1,0 +1,9 @@
+{
+  "name": "Credit",
+  "status": "ACTIVE",
+  "currencyCode": "EUR",
+  "productLimit": 500000,
+  "interestRate": 0.001,
+  "createdAt": "2024-01-31T23:00:00.000+00:00",
+  "updatedAt": null
+}

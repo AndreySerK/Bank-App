@@ -1,0 +1,9 @@
+{
+  "result": false,
+  "violations": [
+    {
+      "fieldName": "name",
+      "message": "Name must not be blank"
+    }
+  ]
+}

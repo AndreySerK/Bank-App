@@ -44,15 +44,15 @@ public class ClientService {
     }
 
     public List<ClientDto> getClientsByStatus(ClientStatus status) {
-        List<ClientDto> accountDTOList = clientListMapper
+        List<ClientDto> clientDTOList = clientListMapper
                 .toDtoList(clientRepository
                         .findClientsByStatus(status));
 
-        if (accountDTOList.isEmpty()) {
+        if (clientDTOList.isEmpty()) {
             throw new NullPointerException("There are no clients with such status!");
         }
 
-        return accountDTOList;
+        return clientDTOList;
     }
 
     public ClientDto changeClientById(@Valid ChangeClientDto dto, Integer id) {

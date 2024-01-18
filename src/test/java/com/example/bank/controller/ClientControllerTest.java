@@ -132,7 +132,7 @@ public class ClientControllerTest  {
 
     @Test
     @WithMockUser(username = "user", password = "user")
-    public void changeByIdTest_whenChangeAccount_thenReturnUpdatedAccount() throws Exception {
+    public void changeByIdTest_whenChangeClient_thenReturnUpdatedClient() throws Exception {
 
         ChangeClientDto changeClientDto = new ChangeClientDto(
                 "Mark",
@@ -165,7 +165,7 @@ public class ClientControllerTest  {
 
     @Test
     @WithMockUser(username = "user", password = "user")
-    public void getByIdTest_whenFindByIdNotExistedAccount_thenReturnError() throws Exception {
+    public void getByIdTest_whenFindByIdNotExistedClient_thenReturnError() throws Exception {
 
         Mockito.when(clientService.getClientById(500)).thenThrow(new EntityNotFoundException("Client with id = 500 not found"));
 

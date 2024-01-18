@@ -6,9 +6,13 @@ import com.example.bank.dto.account.ChangeAccountDto;
 import com.example.bank.dto.account.ClientInAccountDto;
 import com.example.bank.dto.client.ChangeClientDto;
 import com.example.bank.dto.client.ClientDto;
+import com.example.bank.dto.manager.ManagerDto;
+import com.example.bank.dto.product.ChangeProductDto;
+import com.example.bank.dto.product.ProductDto;
 import com.example.bank.entity.Account;
 import com.example.bank.entity.Client;
 import com.example.bank.entity.Manager;
+import com.example.bank.entity.Product;
 import com.example.bank.entity.enums.*;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
@@ -24,10 +28,10 @@ import java.text.MessageFormat;
 
 public class TestUtils {
 
-    public static String readStringFromResource (String resourcePath) {
+    public static String readStringFromResource(String resourcePath) {
 
         ResourceLoader resourceLoader = new DefaultResourceLoader();
-        Resource resource = resourceLoader.getResource(MessageFormat.format("classpath:{0}" , resourcePath));
+        Resource resource = resourceLoader.getResource(MessageFormat.format("classpath:{0}", resourcePath));
 
         try (Reader reader = new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8)) {
             return FileCopyUtils.copyToString(reader);
@@ -36,7 +40,7 @@ public class TestUtils {
         }
     }
 
-    public static Account createAccount (Long id, Client client) {
+    public static Account createAccount(Long id, Client client) {
 
         Account account = new Account();
         account.setId(id);
@@ -52,7 +56,7 @@ public class TestUtils {
 
     }
 
-    public static Client createClient (Long id, Manager manager) {
+    public static Client createClient(Long id, Manager manager) {
 
         Client client = new Client();
         client.setId(id);
@@ -70,7 +74,7 @@ public class TestUtils {
 
     }
 
-    public static Manager createManager (Long id) {
+    public static Manager createManager(Long id) {
 
         Manager manager = new Manager();
         manager.setId(id);
@@ -80,6 +84,49 @@ public class TestUtils {
         manager.setCreatedAt(Timestamp.valueOf("2024-02-01 00:00:00"));
         manager.setUpdatedAt(null);
         return manager;
+    }
+
+    public static Product createProduct(Long id, Long managerId) {
+
+        Product product = new Product();
+
+        product.setId(id);
+        product.setName("Credit");
+        product.setProductLimit(500000);
+        product.setCreatedAt(Timestamp.valueOf("2024-02-01 00:00:00"));
+        product.setUpdatedAt(null);
+        product.setInterestRate(0.001);
+        product.setCurrencyCode(CurrencyCode.EUR);
+        product.setStatus(ProductStatus.ACTIVE);
+        product.setManager(createManager(managerId));
+
+        return product;
+    }
+
+    public static ProductDto createProductDto (Long id) {
+
+        ProductDto productDto = new ProductDto();
+
+        productDto.setName("Credit");
+        productDto.setProductLimit(500000);
+        productDto.setCreatedAt(Timestamp.valueOf("2024-02-01 00:00:00"));
+        productDto.setUpdatedAt(null);
+        productDto.setInterestRate(0.001);
+        productDto.setCurrencyCode(CurrencyCode.EUR);
+        productDto.setStatus(ProductStatus.ACTIVE);
+
+        return productDto;
+    }
+
+    public static ManagerDto createManagerDto (Long id) {
+
+        ManagerDto managerDto = new ManagerDto();
+
+        managerDto.setFirstName("John");
+        managerDto.setLastName("Doe");
+        managerDto.setStatus(ManagerStatus.valueOf("WORKING"));
+
+        return managerDto;
     }
 
     public static AccountDto createAccountDto (Long id, ClientInAccountDto clientDto) {
@@ -120,6 +167,18 @@ public class TestUtils {
         accountDto.setCurrencyCode(changeAccountDto.getCurrencyCode());
 
         return accountDto;
+    }
+
+    public static ProductDto getChangedProductDto (Long id, ChangeProductDto changeProductDto) {
+
+        ProductDto productDto = createProductDto(id);
+        productDto.setName(changeProductDto.getName());
+        productDto.setProductLimit(changeProductDto.getProductLimit());
+        productDto.setStatus(changeProductDto.getStatus());
+        productDto.setInterestRate(changeProductDto.getInterestRate());
+        productDto.setCurrencyCode(changeProductDto.getCurrencyCode());
+
+        return productDto;
     }
 
     public static ClientInAccountDto createClientInAccountDto (Long id) {
