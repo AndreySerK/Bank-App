@@ -44,8 +44,6 @@ public class ManagerMapperTest {
     public void toEntityTest_whenGetManagerDto_shouldReturnManager () {
 
         Manager actualManager = managerMapper.toEntity(managerDto);
-        System.out.println(actualManager.toString());
-        System.out.println(manager.toString());
 
         assertEquals(manager.getFirstName(), actualManager.getFirstName());
         assertEquals(manager.getLastName(), actualManager.getLastName());

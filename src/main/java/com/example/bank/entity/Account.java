@@ -4,6 +4,7 @@ import com.example.bank.entity.enums.AccountStatus;
 import com.example.bank.entity.enums.AccountType;
 import com.example.bank.entity.enums.CurrencyCode;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,6 +20,7 @@ import static jakarta.persistence.EnumType.STRING;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "accounts")
 public class Account {
 
