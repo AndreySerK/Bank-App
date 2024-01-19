@@ -8,8 +8,10 @@ ___
 ### Database Diagram
 ![PhotoBase](https://github.com/AndreySerK/Bank-App/blob/10646179f29dfeeb30e1634e23c04d1ca75178a6/db_diagram.png)
 
-### Api Description
 
+
+## Api Description
+https://github.com/AndreySerK/Bank-App/blob/cba477ca24ef76225ec2752599fc64d870d9cc7d/API%20description.docx
 
 ___
 ## Database Structure
