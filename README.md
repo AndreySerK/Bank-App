@@ -14,7 +14,7 @@ ___
 https://github.com/AndreySerK/Bank-App/blob/cba477ca24ef76225ec2752599fc64d870d9cc7d/API%20description.docx
 
 ## Swagger
-http://localhost:8095/swagger-ui
+http://localhost:8095/swagger-ui  (user, user)
 
 ___
 ## Database Structure
